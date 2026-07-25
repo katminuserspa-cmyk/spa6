@@ -501,8 +501,8 @@ function openEventDetails(event) {
 
   if (window.appUtils?.showModal) {
     window.appUtils.showModal('Appointment Details', content);
-  } else {
-    alert(`Client: ${event.title}\nTime: ${startStr}\nStatus: ${b.status}`);
+  } else if (window.appUtils?.showToast) {
+    window.appUtils.showToast(`Client: ${event.title} | Time: ${startStr} | Status: ${b.status}`, 'info');
   }
 }
 

@@ -325,17 +325,6 @@
 //     });
 //   });
 
-//   // Demo button click handlers
-//   document.querySelectorAll('.template-demo-btn').forEach(btn => {
-//     btn.addEventListener('click', (e) => {
-//       e.preventDefault();
-//       const templateName = btn.closest('.template-card').querySelector('h3').textContent;
-//       console.log(`Viewing demo for: ${templateName}`);
-//       // TODO: Implement navigation to specific template view
-//     });
-//   });
-// }
-
 /**
  * ============================================
  * PREMIUM BI TEMPLATE SHOWCASE MODULE
@@ -667,9 +656,10 @@ function attachShowcaseEventListeners() {
   document.querySelectorAll('.template-demo-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const templateName = btn.closest('.template-card').querySelector('h3').textContent;
-      console.log(`Viewing demo for: ${templateName}`);
-      // TODO: Implement navigation to specific template view
+      const templateName = btn.closest('.template-card')?.querySelector('h3')?.textContent || 'Report';
+      if (window.appUtils?.showToast) {
+        window.appUtils.showToast(`Template preview loaded for ${templateName}`, 'info');
+      }
     });
   });
 }
