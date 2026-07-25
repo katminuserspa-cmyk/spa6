@@ -329,8 +329,8 @@ function renderCharts(tab, data) {
   sideND.classList.add('d-none'); sideCtx.style.display = '';
 
   const isLight = document.body.classList.contains('light-mode');
-  const textColor = isLight ? '#475569' : '#94a3b8';
-  const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
+  const textColor = isLight ? '#000000' : '#94a3b8';
+  const gridColor = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.06)';
 
   const baseOpts = {
     responsive: true,
@@ -342,9 +342,9 @@ function renderCharts(tab, data) {
       },
       tooltip: {
         backgroundColor: isLight ? '#ffffff' : '#0f2e2c',
-        titleColor: isLight ? '#0f172a' : '#ecfdf5',
-        bodyColor: isLight ? '#475569' : '#99f6e4',
-        borderColor: isLight ? '#e2e8f0' : '#134e4a',
+        titleColor: isLight ? '#000000' : '#ecfdf5',
+        bodyColor: isLight ? '#0f172a' : '#99f6e4',
+        borderColor: isLight ? '#000000' : '#134e4a',
         borderWidth: 1,
         padding: 12,
         boxPadding: 6,

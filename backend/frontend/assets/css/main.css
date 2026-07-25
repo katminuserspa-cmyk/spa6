@@ -1982,4 +1982,109 @@ tbody tr:hover td {
 
 .fc .fc-timegrid-now-indicator-arrow {
   border-color: #ef4444 !important;
+}
+
+/* ─────────────────────────────────────────────────────
+   LIGHT MODE CRISP BLACK OUTLINES & HIGH OPACITY ENHANCEMENTS
+   ───────────────────────────────────────────────────── */
+.light-mode input,
+.light-mode select,
+.light-mode textarea,
+.light-mode .form-control,
+.light-mode .f-select,
+.light-mode .f-input,
+.light-mode .btn-export,
+.light-mode .btn-outline,
+.light-mode .btn-outline-teal,
+.light-mode .tab-btn,
+.light-mode .card,
+.light-mode .kpi-card,
+.light-mode .stat-card,
+.light-mode .cal-stat-card,
+.light-mode .chart-box,
+.light-mode .ledger-wrap,
+.light-mode .table-container,
+.light-mode .invoice-summary-card,
+.light-mode .modal-content,
+.light-mode .theme-toggle,
+.light-mode .top-header,
+.light-mode .calendar-card-header,
+.light-mode .calendar-legend-bar,
+.light-mode #calendarWrapper,
+.light-mode .service-item,
+.light-mode .summary-card,
+.light-mode .filters .form-control {
+  border-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+.light-mode .tab-btn {
+  color: #000000 !important;
+  background: #ffffff !important;
+  border: 1px solid #000000 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.light-mode .tab-btn i {
+  opacity: 1 !important;
+}
+
+.light-mode .tab-btn.active {
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+.light-mode .tab-btn:hover:not(.active) {
+  background: #e2e8f0 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+.light-mode table,
+.light-mode th,
+.light-mode td,
+.light-mode tr,
+.light-mode .data-table td,
+.light-mode .data-table th,
+.light-mode .bookings-table td,
+.light-mode .bookings-table th {
+  border-color: #000000 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+.light-mode .kpi-label,
+.light-mode .stat-lbl,
+.light-mode .text-muted,
+.light-mode .summary-row,
+.light-mode small,
+.light-mode label {
+  color: #1e293b !important;
+  opacity: 1 !important;
+}
+
+.light-mode .f-select,
+.light-mode input[type="date"],
+.light-mode input[type="text"],
+.light-mode input[type="number"],
+.light-mode .btn-export {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+.light-mode .kpi-card {
+  background-color: #ffffff !important;
+  border: 1px solid #000000 !important;
+}
+
+.light-mode .chart-box,
+.light-mode .ledger-wrap {
+  background-color: #ffffff !important;
+  border: 1px solid #000000 !important;
 }
