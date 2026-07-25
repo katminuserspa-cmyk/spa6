@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-const { pool, testConnection } = require('./config/database');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const { pool, testConnection } = require('../config/database');
 
 async function updatePasswords() {
   try {
@@ -33,8 +33,6 @@ async function updatePasswords() {
       }
     }
 
-    // Also update any users that have the placeholder password from import
-    const placeholderHash = bcrypt.hashSync('ChangeMe@123', 10);
     const [allUsers] = await pool.query('SELECT id, email, password FROM users');
 
     let fixedCount = 0;

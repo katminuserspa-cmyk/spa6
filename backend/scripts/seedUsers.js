@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, ".env") });
-const { pool, testConnection } = require("./config/database");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
+const { pool, testConnection } = require("../config/database");
 
 async function main() {
   const connected = await testConnection();
@@ -10,7 +10,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Create users table
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,11 +26,9 @@ async function main() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
   `);
 
-  // Hash passwords
   const ownerHash = await bcrypt.hash("owner@123", 10);
   const centerHash = await bcrypt.hash("center@123", 10);
 
-  // Insert owner + center
   await pool.query(`
     INSERT INTO users (email, password, name, role, salon_id, phone)
     VALUES

@@ -1,4 +1,4 @@
-const { pool } = require('./config/database');
+const { pool } = require('../config/database');
 
 async function checkBookings() {
   try {
@@ -12,17 +12,9 @@ async function checkBookings() {
       console.log(`ID: ${row.id}, Date: ${row.booking_date}, Time: ${row.start_time}-${row.end_time}, Status: ${row.status}, Customer: ${row.customer_id}`);
     });
     
-    // Check specifically for 2026-02-11
-    console.log('\n=== BOOKINGS FOR 2026-02-11 ===');
-    const [todayRows] = await connection.query("SELECT * FROM bookings WHERE booking_date = '2026-02-11' ORDER BY start_time");
-    console.log(`Found ${todayRows.length} bookings for 2026-02-11`);
-    todayRows.forEach(row => {
-      console.log(`- ${row.start_time} to ${row.end_time}: ${row.notes}`);
-    });
-    
     // Check date types
     console.log('\n=== CHECKING BOOKING_DATE DATA TYPES ===');
-    const [sampleRow] = await connection.query("SELECT booking_date, typeof(booking_date) as type FROM bookings LIMIT 1");
+    const [sampleRow] = await connection.query("SELECT booking_date FROM bookings LIMIT 1");
     console.log(`Sample booking_date value: ${sampleRow[0]?.booking_date}`);
     console.log(`Type: ${typeof sampleRow[0]?.booking_date}`);
     

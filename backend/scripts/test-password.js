@@ -8,7 +8,6 @@ async function testPassword() {
     const match = await bcrypt.compare(testPassword, storedHash);
     console.log('Password match:', match);
     
-    // Also test generating a new hash
     const newHash = await bcrypt.hash(testPassword, 10);
     console.log('New hash would be:', newHash);
     console.log('Would match:', await bcrypt.compare(testPassword, newHash));

@@ -1,5 +1,5 @@
 require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
-const { pool } = require('./config/database');
+const { pool } = require('../config/database');
 
 async function checkUsers() {
   try {
