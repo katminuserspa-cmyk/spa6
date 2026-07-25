@@ -80,19 +80,6 @@ app.get('/app', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/app.html'));
 });
 
-// Error handling
-app.use(errorHandler);
-
-// Global error handling middleware
-app.use((err, req, res, next) => {
-  console.error('[Global Error]', err.stack);
-  res.status(err.status || 500).json({
-    success: false,
-    message: err.message || 'Internal Server Error',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
-  });
-});
-
 // API 404 handler (only for /api/* routes)
 app.use('/api', (req, res) => {
   res.status(404).json({ success: false, error: 'Route not found' });
@@ -101,6 +88,27 @@ app.use('/api', (req, res) => {
 // All other unhandled GET routes fall back to the frontend SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/app.html'));
+});
+
+// Global Error Handling Middlewares (Must be registered LAST)
+app.use(errorHandler);
+
+app.use((err, req, res, next) => {
+  console.error('[Global Error]', err.stack || err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+  });
+});
+
+// Process-level uncaught exception & rejection protection
+process.on('uncaughtException', (err) => {
+  logger.error(`[Uncaught Exception]: ${err.message}`, { stack: err.stack });
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error(`[Unhandled Rejection]: ${reason.message || reason}`, { reason });
 });
 
 // Start server

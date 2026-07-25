@@ -6,7 +6,13 @@
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js",
-    "dev": "nodemon api/index.js"
+    "dev": "nodemon api/index.js",
+    "pass": "node scripts/pass.js",
+    "db:pass": "node scripts/pass.js",
+    "db:init": "node scripts/init-db.js",
+    "db:check": "node scripts/check-users.js",
+    "db:seed": "node scripts/seedUsers.js",
+    "db:seed-bookings": "node scripts/seedBookingsToday.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

@@ -1369,7 +1369,7 @@ ON DUPLICATE KEY UPDATE `id` = `id`;
 INSERT INTO `users` (`salon_id`, `name`, `email`, `password`, `role`, `is_active`) VALUES
 (1, 'Salon Owner', 'owner@gmail.com', '$2b$10$vwbQtF54ydMFqYk0/RGq.ebMEufeLxVy3rVatZN7OBj.yzNVgsjHS', 'owner', 1),
 (1, 'Center Manager', 'center@gmail.com', '$2a$10$sRk5fHqfvJoy80RposMr7.1Ivlf.iUxAny.xbhV3Vyy86Yovq1vFK', 'center', 1),
-(1, 'Staff Member', 'staff@gmail.com', '$2a$10$YourHashedPasswordHereForStaff', 'staff', 1)
+(1, 'Staff Member', 'staff@gmail.com', '$2b$10$v30DaVTVDup51wFg/TB6nOKV7ruUwD9YmaIt8byrB/ECv66mzQuY2', 'staff', 1)
 ON DUPLICATE KEY UPDATE `email` = `email`;
 
 -- Insert sample categories
