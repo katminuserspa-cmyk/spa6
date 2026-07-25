@@ -3,6 +3,7 @@ const router = express.Router();
 const { authenticate } = require('../middleware/auth.middleware');
 const dashboardController = require('../controllers/dashboard.controller');
 
+router.get('/', authenticate, dashboardController.getDashboardStats);
 router.get('/stats', authenticate, dashboardController.getDashboardStats);
 router.get('/revenue', authenticate, dashboardController.getRevenueData);
 router.get('/bookings', authenticate, dashboardController.getBookingData);

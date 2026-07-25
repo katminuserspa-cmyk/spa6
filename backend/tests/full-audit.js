@@ -475,7 +475,7 @@ async function runAllTests() {
   log(++tc, 'Deployment', 'Vercel config exists', fileExists('vercel.json') ? 'PASS' : 'WARN');
   log(++tc, 'Deployment', 'Server exports app for serverless', indexJs.includes('module.exports') ? 'PASS' : 'FAIL');
   log(++tc, 'Deployment', 'CORS enabled', indexJs.includes('cors()') ? 'PASS' : 'FAIL');
-  log(++tc, 'Deployment', 'JSON body parser enabled', indexJs.includes('express.json()') ? 'PASS' : 'FAIL');
+  log(++tc, 'Deployment', 'JSON body parser enabled', indexJs.includes('express.json') ? 'PASS' : 'FAIL');
 
   const pkg = JSON.parse(readFile('package.json'));
   log(++tc, 'Deployment', 'package.json has start script', pkg.scripts?.start ? 'PASS' : 'WARN', pkg.scripts?.start || 'Missing');

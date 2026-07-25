@@ -137,50 +137,21 @@ async function createBooking(req, res) {
 
     // Apply membership plan and wallet if customer has active membership
     // Only recalculate if frontend didn't provide wallet values
-    console.log('[Bookings] Checking membership for customer:', customer_id, 'membership_apply:', membership_apply, 'apply_wallet:', apply_wallet);
     if (customer_id && membership_apply && walletApplied === 0) {
       try {
         const membership = await Membership.getUserMembership(customer_id);
-        console.log('[Bookings] Found membership:', membership ? { 
-          id: membership.id, 
-          wallet_balance: membership.wallet_balance, 
-          status: membership.status,
-          discount_percentage: membership.discount_percentage
-        } : null);
         
         if (membership && (membership.status === 'active' || membership.status === 'pending')) {
           const percent = parseFloat(membership.discount_percentage || 0);
           // Percentage discount applies on the subtotal
           planDiscount = (apply_percent && percent > 0) ? (subtotal * (percent / 100)) : 0;
           
-          console.log('[Bookings] Discount calculations:', {
-            subtotal,
-            planDiscount,
-            manualDiscount
-          });
-          
           // Wallet covers remaining total after manual + plan
           const walletBalance = parseFloat(membership.wallet_balance || 0);
           const remainingAfterDiscounts = Math.max(0, subtotalAfterFree - planDiscount - manualDiscount);
           
-          console.log('[Bookings] Before wallet application:', {
-            walletBalance,
-            subtotalAfterFree,
-            planDiscount,
-            manualDiscount,
-            remainingAfterDiscounts,
-            apply_wallet
-          });
-          
           if (apply_wallet && walletBalance > 0 && remainingAfterDiscounts > 0) {
             walletApplied = Math.min(walletBalance, remainingAfterDiscounts);
-            console.log('[Bookings] Wallet applied:', walletApplied);
-          } else {
-            console.log('[Bookings] Wallet not applied because:', {
-              apply_wallet,
-              walletBalance: walletBalance > 0,
-              remainingAfterDiscounts: remainingAfterDiscounts > 0
-            });
           }
 
           // Update membership balances only if we actually applied something
@@ -189,28 +160,16 @@ async function createBooking(req, res) {
             await Membership.updateMembership(membership.id, {
               wallet_balance: newWallet
             });
-            console.log('[Bookings] Updated membership wallet balance:', { newWallet });
           }
-        } else {
-          console.log('[Bookings] Membership not active or not found');
         }
       } catch (e) {
-        console.log('[Bookings] Error in membership application:', e.message);
-        // Ignore membership application errors
+        // Ignore membership application errors safely
       }
     }
 
     // Use frontend calculated values if provided, otherwise calculate on backend
     walletApplied = parseFloat(frontend_wallet_applied || wallet_applied_preview || 0);
     let taxAmount = parseFloat(frontend_tax_amount || 0);
-    
-    console.log('[Bookings] Frontend values received:', {
-      frontend_wallet_applied,
-      wallet_applied_preview,
-      frontend_tax_amount,
-      apply_wallet,
-      customer_id
-    });
     
     // If no tax provided from frontend, calculate 5% tax on subtotal
     if (taxAmount === 0) {
@@ -219,16 +178,6 @@ async function createBooking(req, res) {
 
     const totalBeforeWallet = Math.max(0, subtotal + taxAmount - manualDiscount - planDiscount);
     const total = Math.max(0, totalBeforeWallet - walletApplied);
-
-    console.log('[Bookings] Final calculations:', {
-      subtotal,
-      taxAmount,
-      manualDiscount,
-      planDiscount,
-      walletApplied,
-      totalBeforeWallet,
-      total
-    });
 
     // Use server calculated values for consistency
     const persistSubtotal = subtotal;
