@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Load initial module
   const initialHash = window.location.hash.slice(1) || 'dashboard';
+  updateActiveNav(initialHash);
   loadModule(initialHash);
 });
 
@@ -70,18 +71,54 @@ async function loadCompanyLogo() {
   }
 }
 
+// Update active navigation link in sidebar
+function updateActiveNav(moduleName) {
+  let rawModule = (moduleName || 'dashboard')
+    .split('?')[0]
+    .split('/')[0]
+    .replace(/^\/+/, '')
+    .toLowerCase();
+
+  let targetModule = rawModule;
+
+  // Handle sub-modules/aliases mapping to sidebar items
+  if (targetModule === 'membership-billing' || targetModule === 'memberships-add') {
+    targetModule = 'memberships';
+  }
+
+  const navLinks = document.querySelectorAll('.sidebar-nav .nav-link, .sidebar .nav-link, a.nav-link');
+  let matched = false;
+
+  navLinks.forEach(link => {
+    const linkMod = (link.dataset.module || '').toLowerCase();
+    if (linkMod && linkMod === targetModule) {
+      link.classList.add('active');
+      matched = true;
+    } else {
+      link.classList.remove('active');
+    }
+  });
+
+  // Fallback if no exact match (e.g. sub-modules with dash)
+  if (!matched && targetModule.includes('-')) {
+    const baseModule = targetModule.split('-')[0];
+    navLinks.forEach(link => {
+      const linkMod = (link.dataset.module || '').toLowerCase();
+      if (linkMod && linkMod === baseModule) {
+        link.classList.add('active');
+      }
+    });
+  }
+}
+
 // Handle navigation
 function handleNavigation() {
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
 
   navLinks.forEach(link => {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       const module = this.dataset.module;
-
-      // Update active state
-      navLinks.forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
 
       // Update hash
       window.location.hash = module;
@@ -106,6 +143,8 @@ async function loadModule(moduleName) {
   // 🔥 NORMALIZE (/bookings → bookings)
   moduleName = moduleName.replace(/^\/+/, '');
 
+  // Sync left panel active sidebar link with current module
+  updateActiveNav(moduleName);
 
   // Check permissions
   const currentUser = auth.getCurrentUser();

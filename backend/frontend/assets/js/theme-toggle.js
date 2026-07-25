@@ -36,6 +36,7 @@
     document.body.classList.toggle('dark-mode', theme === 'dark');
     localStorage.setItem(STORAGE_KEY, theme);
     updateToggleIcon(theme);
+    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
   }
 
   /**
