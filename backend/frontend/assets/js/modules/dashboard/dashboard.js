@@ -40,23 +40,29 @@ export async function render(container) {
 
         <div class="dash-wrap">
             <!-- Filter Toolbar -->
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 p-3 rounded" style="background:var(--color-bg-card); border:1px solid var(--color-border-card);">
-                <div class="d-flex flex-wrap align-items-center gap-2">
-                  <span class="fw-bold text-heading me-1" style="font-size:0.88rem;"><i class="fas fa-filter text-primary me-1"></i> Date Range:</span>
-                  <input type="date" id="dashStart" class="f-select">
-                  <span style="color:var(--color-text-muted)">→</span>
-                  <input type="date" id="dashEnd" class="f-select">
-                  <select id="filterStaff" class="f-select"><option value="">All Staff</option></select>
-                  <select id="filterService" class="f-select"><option value="">All Services</option></select>
-                  <select id="filterBranch" class="f-select"><option value="">All Branches</option></select>
+            <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 mb-4 p-3 rounded shadow-sm w-100" style="background:var(--color-bg-card); border:1px solid var(--color-border-card);">
+                <div class="d-flex flex-wrap align-items-center gap-3 flex-grow-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="fw-bold text-heading me-1" style="font-size:0.88rem; white-space: nowrap;"><i class="fas fa-filter text-primary me-1"></i> Date Range:</span>
+                    <input type="date" id="dashStart" class="f-select">
+                    <span style="color:var(--color-text-muted)">→</span>
+                    <input type="date" id="dashEnd" class="f-select">
+                  </div>
+                  <div class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
+                    <select id="filterStaff" class="f-select flex-grow-1"><option value="">All Staff</option></select>
+                    <select id="filterService" class="f-select flex-grow-1"><option value="">All Services</option></select>
+                    <select id="filterBranch" class="f-select flex-grow-1"><option value="">All Branches</option></select>
+                  </div>
                 </div>
 
-                <div class="d-flex flex-wrap align-items-center gap-2">
-                    <button class="btn-export" data-range="7">7D</button>
-                    <button class="btn-export" data-range="30">30D</button>
-                    <button class="btn-export" data-range="90">90D</button>
-                    <button class="btn-apply" id="applyFilters"><i class="fas fa-sync-alt"></i> Apply Filters</button>
-                    <button class="btn-export" id="exportBtn"><i class="fas fa-file-export"></i> Export CSV</button>
+                <div class="d-flex flex-wrap align-items-center gap-2 justify-content-start justify-content-lg-end w-100 w-lg-auto">
+                    <div class="btn-group" role="group">
+                        <button class="btn-export" data-range="7">7D</button>
+                        <button class="btn-export" data-range="30">30D</button>
+                        <button class="btn-export" data-range="90">90D</button>
+                    </div>
+                    <button class="btn-apply flex-grow-1 flex-sm-grow-0 justify-content-center" id="applyFilters"><i class="fas fa-sync-alt"></i> Apply Filters</button>
+                    <button class="btn-export flex-grow-1 flex-sm-grow-0 justify-content-center" id="exportBtn"><i class="fas fa-file-export"></i> Export CSV</button>
                 </div>
             </div>
 
