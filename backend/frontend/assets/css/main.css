@@ -215,8 +215,10 @@ html {
 }
 
 .card {
-  background: var(--color-bg-card);
-  border-radius: var(--radius-md);
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
   padding: 30px;
   position: relative;
   border: 1px solid var(--color-border-card);

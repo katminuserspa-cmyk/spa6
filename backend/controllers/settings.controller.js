@@ -8,6 +8,10 @@ const fs = require('fs');
 // Ensure backup_logs table exists on load
 BackupModel.ensureTable().catch(err => console.warn('backup_logs table setup:', err.message));
 
+// Simple in-memory cache for settings
+const settingsCache = new Map();
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
 // Configure multer for logo uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -87,6 +91,7 @@ async function uploadLogo(req, res) {
     const salonId = req.user.salon_id;
 
     await pool.query('UPDATE salons SET logo_url = ? WHERE id = ?', [logoUrl, salonId]);
+    settingsCache.delete(salonId); // Invalidate cache
 
     res.json({
       message: 'Logo uploaded successfully',
@@ -103,6 +108,13 @@ async function uploadLogo(req, res) {
 async function getSettings(req, res) {
   try {
     const salonId = req.user?.salon_id || 1;
+
+    // Check cache first
+    const cached = settingsCache.get(salonId);
+    if (cached && (Date.now() - cached.timestamp < CACHE_TTL_MS)) {
+      return res.json(cached.data);
+    }
+
     const [rows] = await pool.query('SELECT * FROM salons WHERE id = ?', [salonId]);
 
     if (rows.length === 0) {
@@ -135,6 +147,7 @@ async function getSettings(req, res) {
       }
     };
 
+    settingsCache.set(salonId, { data: response, timestamp: Date.now() });
     res.json(response);
   } catch (error) {
     console.error('Error getting settings:', error);
@@ -188,6 +201,7 @@ async function updateSettings(req, res) {
       return res.status(404).json({ error: 'Salon not found' });
     }
 
+    settingsCache.delete(salonId); // Invalidate cache on update
     res.json({ message: 'Settings updated successfully' });
   } catch (error) {
     console.error('Error updating settings:', error);

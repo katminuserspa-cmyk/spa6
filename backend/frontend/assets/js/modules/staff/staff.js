@@ -748,10 +748,11 @@ async function handleStaffSave(staff, isEdit) {
     return;
   }
 
+  let originalText = '';
   try {
     // Show loading
     const saveBtn = document.getElementById('saveStaffBtn');
-    const originalText = saveBtn.innerHTML;
+    originalText = saveBtn.innerHTML;
     saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + (isEdit ? 'Updating...' : 'Creating...');
     saveBtn.disabled = true;
 

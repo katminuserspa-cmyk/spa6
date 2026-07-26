@@ -1,38 +1,38 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": {
-      "includeFiles": "frontend/**"
+    "backend/api/index.js": {
+      "includeFiles": "backend/frontend/**"
     }
   },
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/frontend/assets/$1"
+      "dest": "/backend/frontend/assets/$1"
     },
     {
       "src": "/uploads/(.*)",
-      "dest": "api/index.js"
+      "dest": "backend/api/index.js"
     },
     {
       "src": "/api/(.*)",
-      "dest": "api/index.js"
+      "dest": "backend/api/index.js"
     },
     {
       "src": "/app",
-      "dest": "/frontend/app.html"
+      "dest": "/backend/frontend/app.html"
     },
     {
       "src": "/",
-      "dest": "/frontend/login.html"
+      "dest": "/backend/frontend/login.html"
     },
     {
       "src": "/(.*\\.(html|css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/frontend/$1"
+      "dest": "/backend/frontend/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "api/index.js"
+      "dest": "backend/api/index.js"
     }
   ]
 }

@@ -155,8 +155,8 @@ function renderCustomersTable(customersList) {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Email</th>
           <th>Phone</th>
+          <th>Email</th>
           <th>Address</th>
           <th>Membership</th>
           <th>Created Date</th>
@@ -168,12 +168,11 @@ function renderCustomersTable(customersList) {
           <tr>
             <td>
               <div style="font-weight: ${customer.name ? 'bold' : 'normal'}">
-                ${customer.name || customer.phone || 'N/A'}
+                ${customer.name || 'N/A'}
               </div>
-              ${customer.name && customer.phone ? `<small class="text-muted">${customer.phone}</small>` : ''}
             </td>
-            <td>${customer.email || '—'}</td>
             <td>${customer.phone || '—'}</td>
+            <td>${customer.email || '—'}</td>
             <td>${customer.address || '—'}</td>
             <td>
               ${customer.membership_plan_name ? `
