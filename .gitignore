@@ -32,3 +32,5 @@ coverage/
 *.temp
 tmpclaude-*
 .claude/
+.vercel
+.env*

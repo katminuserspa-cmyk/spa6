@@ -1,38 +1,42 @@
 {
   "version": 2,
-  "functions": {
-    "backend/api/index.js": {
-      "includeFiles": "backend/frontend/**"
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": "frontend/**"
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/backend/frontend/assets/$1"
+      "dest": "/frontend/assets/$1"
     },
     {
       "src": "/uploads/(.*)",
-      "dest": "backend/api/index.js"
+      "dest": "/api/index.js"
     },
     {
       "src": "/api/(.*)",
-      "dest": "backend/api/index.js"
+      "dest": "/api/index.js"
     },
     {
       "src": "/app",
-      "dest": "/backend/frontend/app.html"
+      "dest": "/frontend/app.html"
     },
     {
       "src": "/",
-      "dest": "/backend/frontend/login.html"
+      "dest": "/frontend/login.html"
     },
     {
       "src": "/(.*\\.(html|css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/backend/frontend/$1"
+      "dest": "/frontend/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "backend/api/index.js"
+      "dest": "/api/index.js"
     }
   ]
 }
